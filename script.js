@@ -249,20 +249,74 @@ function initSettings() {
             }
             localStorage.setItem('bgColor', color);
             
-            // 更新游戏容器的背景颜色
+            // 更新所有界面的背景和文字颜色
             const gameContainer = document.getElementById('game-container');
+            const menuContainer = document.getElementById('menu-container');
+            const rulesContainer = document.getElementById('rules-container');
+            const settingsContainer = document.getElementById('settings-container');
+            
             if (color === 'black') {
+                // 更新游戏容器
                 gameContainer.style.backgroundColor = '#444';
                 gameContainer.style.color = 'white';
                 gameContainer.querySelector('h1').style.color = 'white';
                 gameContainer.querySelector('.steps').style.color = 'white';
                 gameContainer.querySelector('.time').style.color = 'white';
+                // 更新分数元素（如果存在）
+                const scoreElement = gameContainer.querySelector('.score');
+                if (scoreElement) {
+                    scoreElement.style.color = 'white';
+                }
+                
+                // 更新菜单容器
+                menuContainer.querySelector('.menu-content').style.backgroundColor = '#444';
+                menuContainer.querySelector('.menu-content').style.color = 'white';
+                menuContainer.querySelector('.menu-content h1').style.color = 'white';
+                
+                // 更新规则容器
+                rulesContainer.querySelector('.rules-content').style.backgroundColor = '#444';
+                rulesContainer.querySelector('.rules-content').style.color = 'white';
+                rulesContainer.querySelector('.rules-content h2').style.color = 'white';
+                rulesContainer.querySelector('.rules-text').style.color = '#e0e0e0';
+                
+                // 更新设置容器
+                settingsContainer.querySelector('.settings-content').style.backgroundColor = '#444';
+                settingsContainer.querySelector('.settings-content').style.color = 'white';
+                settingsContainer.querySelector('.settings-content h2').style.color = 'white';
+                settingsContainer.querySelectorAll('.setting-item label').forEach(label => {
+                    label.style.color = 'white';
+                });
             } else {
+                // 更新游戏容器
                 gameContainer.style.backgroundColor = 'white';
                 gameContainer.style.color = 'black';
                 gameContainer.querySelector('h1').style.color = '#333';
                 gameContainer.querySelector('.steps').style.color = '#555';
                 gameContainer.querySelector('.time').style.color = '#555';
+                // 更新分数元素（如果存在）
+                const scoreElement = gameContainer.querySelector('.score');
+                if (scoreElement) {
+                    scoreElement.style.color = '#555';
+                }
+                
+                // 更新菜单容器
+                menuContainer.querySelector('.menu-content').style.backgroundColor = 'white';
+                menuContainer.querySelector('.menu-content').style.color = '#333';
+                menuContainer.querySelector('.menu-content h1').style.color = '#333';
+                
+                // 更新规则容器
+                rulesContainer.querySelector('.rules-content').style.backgroundColor = 'white';
+                rulesContainer.querySelector('.rules-content').style.color = '#333';
+                rulesContainer.querySelector('.rules-content h2').style.color = '#333';
+                rulesContainer.querySelector('.rules-text').style.color = '#555';
+                
+                // 更新设置容器
+                settingsContainer.querySelector('.settings-content').style.backgroundColor = 'white';
+                settingsContainer.querySelector('.settings-content').style.color = '#333';
+                settingsContainer.querySelector('.settings-content h2').style.color = '#333';
+                settingsContainer.querySelectorAll('.setting-item label').forEach(label => {
+                    label.style.color = '#555';
+                });
             }
         });
     });
@@ -591,9 +645,10 @@ function checkMatch() {
                 score = Math.ceil(score * 1.5);
                 hasMatchedSCU = true;
                 console.log('首次匹配四川大学成功！分数*1.5:', score);
-            } 
-            // 如果已经匹配过电子科技大学，之后每次匹配川大时分数减半
-            else if (hasMatchedUESTC) {
+            }
+            
+            // 如果已经匹配过电子科技大学（无论是否是首次匹配川大），每次匹配川大时分数减半
+            if (hasMatchedUESTC) {
                 // 如果处于电子科技大学带来的得分翻倍效果内，立刻结束得分翻倍效果
                 if (doubledStepsRemaining > 0) {
                     doubledStepsRemaining = 0;
